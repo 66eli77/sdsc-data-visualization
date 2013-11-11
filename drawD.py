@@ -4,7 +4,7 @@ import sys
 import json
 import hashlib
 
-from job import Job
+from jobD import Job
 
 def main():
 	pygame.init()
@@ -13,7 +13,12 @@ def main():
 	background = pygame.image.load("go.jpg")
 	screen = pygame.display.set_mode(size)
 	screen.blit(background,(0,0))
-	width = 0
+	width = 1
+	pseudoJob = Job(0)
+	myjob = pseudoJob.getData()
+	
+	count = 0
+
 
 	while 1:
 		for event in pygame.event.get():
@@ -22,24 +27,32 @@ def main():
 			elif event.type==pygame.KEYDOWN:
 				if event.key==pygame.K_ESCAPE:
 					sys.exit()
-									
-		pseudoJob = Job(0)
-		myjob = pseudoJob.getData()
-		
+											
 		for n in range(0, len(myjob)):
 			drawing(width, myjob[n], screen)
 			if (n != len(myjob) -1):
-				width += (myjob[n].node * myjob[n].core) / 5
+				width += (myjob[n].node * myjob[n].core) + 1
 			else:
-				width = 0
-		print myjob[0].qtime
+				width = 1
+		
+		count += 1
+		
+		if (count == 300):		
+			myjob = pseudoJob.getData()
+			count = 0
+
+		#print myjob[0].qtime
 		pygame.display.flip()
-		fpsClock.tick(30)
+		fpsClock.tick(3)
 		
 		
 def drawing(width, Job, screen):
-	rect = pygame.Rect(width, 850, ((Job.node * Job.core) / 5),( -Job.wallrequest / 800))
+	rect = pygame.Rect(width, 850, (Job.node * Job.core),( -Job.wallrequest / 800))
 	pygame.draw.rect(screen, _hexColor(Job.owner), rect)	
+	if(Job.state == "R"):
+		rect1 = pygame.Rect(width + 5, 850, (Job.node * Job.core) - 10, (-Job.run)/800)
+		pygame.draw.rect(screen, (255, 255, 255), rect1)
+	
 	
 # Create a hex color value from a value
 def _hexColor(x):

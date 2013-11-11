@@ -20,13 +20,15 @@ class Job:
 			self.node = jobDict["nodect"]
 			self.id = jobDict["job_id"]
 			self.core = jobDict["ppn"]
+			if (jobDict["job_state"] == "R"):
+				self.run = jobDict["walltime_used"]
     
 			self.color = "I don't know"
 			self.size = "I don't konw"
     
 	def getData(self):
 		req = urllib2.Request('http://sentinel.sdsc.edu/data/jobs/gordon')
-		response = urllib2.urlopen(req, 'r')
+		response = urllib2.urlopen(req)
 		jsonStr = response.read()
 		data = json.loads(jsonStr)["jobs"]
 		dic = {}
