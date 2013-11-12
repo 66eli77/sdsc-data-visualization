@@ -1,4 +1,5 @@
-#!/usr/bin/env python2
+# Eli Dai a11062387
+# VIS 198  assignment 2
 import pygame
 import sys
 import json
@@ -31,7 +32,7 @@ def main():
 		for n in range(0, len(myjob)):
 			drawing(width, myjob[n], screen)
 			if (n != len(myjob) -1):
-				width += (myjob[n].node * myjob[n].core) + 1
+				width += (myjob[n].node * myjob[n].core)/3 + 1
 			else:
 				width = 1
 		
@@ -47,11 +48,11 @@ def main():
 		
 		
 def drawing(width, Job, screen):
-	rect = pygame.Rect(width, 850, (Job.node * Job.core),( -Job.wallrequest / 800))
+	rect = pygame.Rect(width, 850, (Job.node * Job.core)/3,( -Job.wallrequest / 300))
 	pygame.draw.rect(screen, _hexColor(Job.owner), rect)	
 	if(Job.state == "R"):
-		rect1 = pygame.Rect(width + 5, 850, (Job.node * Job.core) - 10, (-Job.run)/800)
-		pygame.draw.rect(screen, (255, 255, 255), rect1)
+		rectInside = pygame.Rect(width + 1, 850, (Job.node * Job.core)/3 - 3, (Job.starttime)/300) 
+		pygame.draw.rect(screen, (255, 255, 255), rectInside)
 	
 	
 # Create a hex color value from a value

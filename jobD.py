@@ -1,3 +1,5 @@
+# Eli Dai a11062387
+# VIS 198  assignment 2
 import json
 import urllib2
 
@@ -20,8 +22,8 @@ class Job:
 			self.node = jobDict["nodect"]
 			self.id = jobDict["job_id"]
 			self.core = jobDict["ppn"]
-			if (jobDict["job_state"] == "R"):
-				self.run = jobDict["walltime_used"]
+			#if (jobDict["job_state"] == "R"):
+			#	self.run = jobDict["walltime_used"]
     
 			self.color = "I don't know"
 			self.size = "I don't konw"
